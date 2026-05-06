@@ -1,204 +1,266 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Travel Buddy</title>
-
-  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Bootstrap CSS (YOU WERE MISSING THIS) -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-
-  <!-- Your CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <body>
-    <header class="header">
-      <div class="headeritem1">
-
-        Travel Buddy
-      </div>
-
-      <button id="new-trip-btn" class="headeritem2" data-bs-toggle="modal" data-bs-target="#myModal">
-        <svg
-          class="blackicons"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
+<body>
+  <header class="app-header" id="app-header">
+    <div class="header-left">
+      <button
+        type="button"
+        class="btn-icon btn-back hidden"
+        id="btn-back"
+        aria-label="Back to dashboard"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
         </svg>
-        
-        New trip
       </button>
-      <div class="modal fade" id="myModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Plan A New Trip </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <a href="#" class="brand" id="brand-link" aria-label="Travel Buddy home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="brand-layers-svg">
+            <polygon points="12 3.5 4 8 12 12.5 20 8" opacity="0.38" />
+            <polygon points="12 7.5 4 12 12 16.5 20 12" opacity="0.72" />
+            <polygon points="12 11.5 4 16 12 20.5 20 16" />
+          </svg>
+        </span>
+        <span class="brand-text">Travel Buddy</span>
+      </a>
+      <h1 class="header-trip-title hidden" id="header-trip-title"></h1>
+    </div>
+    <button type="button" class="btn btn-primary" id="btn-new-trip" aria-label="Create new trip">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="btn-icon-svg" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+      <span class="btn-new-text">New Trip</span>
+    </button>
+  </header>
+
+  <main class="view view-dashboard" id="view-dashboard" aria-label="Trip dashboard">
+    <section class="hero-section" id="dashboard-hero">
+      <h2 class="page-title">Welcome, happy planning</h2>
+      <p class="page-subtitle">Your trips will show up here once you add them.</p>
+    </section>
+
+    <section class="controls" id="dashboard-controls" aria-label="Search and filter trips">
+      <div class="controls-top">
+        <div class="search-wrap">
+          <label for="search-trips" class="visually-hidden">Search trips</label>
+          <span class="search-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </span>
+          <input type="search" id="search-trips" class="input search-input" autocomplete="off" />
+        </div>
+        <div class="sort-wrap">
+          <label for="sort-trips" class="sort-label">Sort by</label>
+          <select id="sort-trips" class="input input-select" aria-label="Sort trips">
+            <option value="created">Date created</option>
+            <option value="start">Start date</option>
+            <option value="alpha">Alphabetical</option>
+            <option value="duration">Duration</option>
+          </select>
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="mb-3">
-  <label class="form-label">Trip Name</label>
-  <input type="text" class="form-control" placeholder="e.g, Summer in paris " id="trip-name">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Destination</label>
-  <input type="text" class="form-control"  placeholder="e.g, France, Tokyo"id="trip-destination">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Start Date</label>
-  <input type="date" class="form-control"  id="trip-start-date">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">End Date</label>
-  <input type="date" class="form-control" id="trip-end-date">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Budget</label>
-  <input type="text" class="form-control" id="trip-budget">
-</div>
-
-<div class="mb-3">
-  <label class="form-label">Description</label>
-  <input style ="padding: 20px"type="text" class="form-control" id="trip-description">
-</div>
+      <div class="filter-tabs" role="tablist" aria-label="Filter by trip status">
+        <button type="button" class="filter-tab active" role="tab" aria-selected="true" data-filter="all">All</button>
+        <button type="button" class="filter-tab" role="tab" aria-selected="false" data-filter="upcoming">Upcoming</button>
+        <button type="button" class="filter-tab" role="tab" aria-selected="false" data-filter="ongoing">Ongoing</button>
+        <button type="button" class="filter-tab" role="tab" aria-selected="false" data-filter="past">Past</button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-trip">Close</button>
-        <button type="button" class="btn btn-primary" id="save-trip">Save changes</button>
+      <div class="filter-tabs category-tabs" id="category-tabs" role="tablist" aria-label="Filter by category">
+        <button type="button" class="filter-tab cat-tab active" role="tab" aria-selected="true" data-category="all">All categories</button>
+        <button type="button" class="filter-tab cat-tab" role="tab" aria-selected="false" data-category="vacation">Vacation</button>
+        <button type="button" class="filter-tab cat-tab" role="tab" aria-selected="false" data-category="business">Business</button>
+        <button type="button" class="filter-tab cat-tab" role="tab" aria-selected="false" data-category="adventure">Adventure</button>
+        <button type="button" class="filter-tab cat-tab" role="tab" aria-selected="false" data-category="family">Family</button>
+        <button type="button" class="filter-tab cat-tab" role="tab" aria-selected="false" data-category="solo">Solo</button>
       </div>
+    </section>
+
+    <div class="trip-grid" id="trip-grid"></div>
+
+    <div class="empty-state hidden" id="empty-state">
+      <div class="empty-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.25" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+        </svg>
+      </div>
+      <p class="empty-title"></p>
+      <p class="empty-text"></p>
+      <button type="button" class="btn btn-primary" id="btn-empty-create">Add a trip</button>
+    </div>
+  </main>
+
+  <main class="view view-detail hidden" id="view-detail" aria-label="Trip details">
+    <div class="detail-hero" id="detail-hero">
+      <div class="detail-hero-media">
+        <img src="" alt="" class="detail-hero-img" id="detail-hero-img" />
+        <div class="detail-hero-gradient"></div>
+        <span class="status-badge detail-hero-badge" id="detail-hero-badge"></span>
+        <div class="detail-hero-text">
+          <h2 class="detail-hero-title" id="detail-hero-title"></h2>
+          <p class="detail-hero-meta" id="detail-hero-meta"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-toolbar card-elevated" id="detail-toolbar">
+      <button type="button" class="btn btn-secondary btn-sm" id="btn-edit-trip" aria-label="Edit trip">
+        <svg class="btn-inline-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </svg>
+        Edit trip
+      </button>
+      <button type="button" class="btn btn-secondary btn-sm" id="btn-duplicate-trip" aria-label="Duplicate trip">
+        <svg class="btn-inline-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375a1.875 1.875 0 0 1-1.875 1.875H5.25A1.875 1.875 0 0 1 3.375 20.625V10.875A1.875 1.875 0 0 1 5.25 9h7.576m6.672 2.618-2.172-.786a1.875 1.875 0 0 0-2.432 2.432l.786 2.172m0 0 3.69-3.69m-3.69 3.69L21 12.75m-9-8.25h9.75a1.5 1.5 0 0 1 0 3H12m0 0v9.75a1.5 1.5 0 0 1-3 0V7.5Z" />
+        </svg>
+        Duplicate
+      </button>
+    </div>
+
+    <section class="detail-progress-card card-elevated" aria-label="Trip progress">
+      <div class="progress-row">
+        <span class="progress-label">Trip Progress</span>
+        <span class="progress-pct" id="detail-progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="detail-progress-fill" style="width: 0%"></div>
+      </div>
+      <button type="button" class="btn-delete" id="btn-delete-trip">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+        </svg>
+        Delete Trip
+      </button>
+    </section>
+
+    <section class="itinerary-section" aria-labelledby="itinerary-heading">
+      <h3 id="itinerary-heading" class="itinerary-title">Your Itinerary</h3>
+      <div class="timeline" id="detail-timeline"></div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop" aria-hidden="true"></div>
+  <div
+    class="modal hidden"
+    id="modal-new-trip"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div class="modal-inner">
+      <header class="modal-header">
+        <h2 id="modal-title">Plan a New Trip</h2>
+        <button type="button" class="btn-icon modal-close" id="modal-close" aria-label="Close dialog">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <form class="modal-form" id="form-new-trip" novalidate>
+        <input type="hidden" id="f-edit-id" value="" />
+        <div class="field">
+          <label for="f-title">Trip Name</label>
+          <input type="text" id="f-title" class="input" required />
+        </div>
+        <div class="field">
+          <label for="f-destination">Destination</label>
+          <input type="text" id="f-destination" class="input" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-start">Start Date</label>
+            <input type="date" id="f-start" class="input" required />
+          </div>
+          <div class="field">
+            <label for="f-end">End Date</label>
+            <input type="date" id="f-end" class="input" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-category">Category</label>
+          <select id="f-category" class="input" required>
+            <option value="vacation">Vacation</option>
+            <option value="business">Business</option>
+            <option value="adventure">Adventure</option>
+            <option value="family">Family</option>
+            <option value="solo">Solo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-desc">Description <span class="optional">(optional)</span></label>
+          <textarea id="f-desc" class="input textarea" rows="3"></textarea>
+        </div>
+        <fieldset class="cover-fieldset">
+          <legend>Cover Image</legend>
+          <div class="cover-grid" id="cover-grid"></div>
+        </fieldset>
+        <p class="form-error hidden" id="form-error" role="alert"></p>
+        <footer class="modal-footer-btns">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-trip">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-trip">Create Trip</button>
+        </footer>
+      </form>
     </div>
   </div>
-</div>
-    </header>
 
-    <div class="main">
-      <div class="mainitem1">
-        <div class="MIsub1">Your Trips</div>
-        <div class="MIsub2">Plan and organize your advnetures</div>
-        <div class="MIsub3">
-          <input
-            type="text"
-            placeholder="Search your trips..."
-            style="
-              padding: 8px;
-              border-radius: 10px;
-              border: 1px solid rgb(191, 204, 197);
-            "
-          />
-          <div class="MIsub4 tabs">
-            <button class="tab active">All</button>
-            <button class="tab">Upcoming</button>
-            <button class="tab">Ongoing</button>
-            <button class="tab">Past</button>
-          </div>
+  <div
+    class="modal hidden"
+    id="modal-activity"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="activity-modal-title"
+  >
+    <div class="modal-inner modal-inner--sm">
+      <header class="modal-header">
+        <h2 id="activity-modal-title">Add activity</h2>
+        <button type="button" class="btn-icon modal-close" id="modal-activity-close" aria-label="Close dialog">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </header>
+      <form class="modal-form" id="form-activity" novalidate>
+        <input type="hidden" id="a-trip-id" />
+        <input type="hidden" id="a-day-date" />
+        <input type="hidden" id="a-activity-id" />
+        <div class="field">
+          <label for="a-title">Activity name</label>
+          <input type="text" id="a-title" class="input" required />
         </div>
-      </div>
-      <div class="mainitem2 cards">
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
+        <div class="field">
+          <label for="a-time">Time</label>
+          <input type="text" id="a-time" class="input" required />
         </div>
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
+        <div class="field">
+          <label for="a-location">Location</label>
+          <input type="text" id="a-location" class="input" required />
         </div>
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image" style="margin-top: 23px">
-            <img src="download (2).jpeg" />
-          </div>
-          <div class="card-content">
-            <h3>Tokyo Adventure</h3>
-            <p>Tokyo, Japan</p>
-          </div>
-        </div>
-      </div>
+        <p class="form-error hidden" id="form-activity-error" role="alert"></p>
+        <footer class="modal-footer-btns">
+          <button type="button" class="btn btn-secondary" id="btn-activity-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-activity-save">Save</button>
+        </footer>
+      </form>
     </div>
-    <!-- <button id="btn">Click</button> -->
+  </div>
 
-    <script src="script.js"></script>
+  <footer class="app-footer">
+    <p>Travel Buddy - Your journey begins here</p>
+  </footer>
 
-    <footer class="footer">Travel Buddy plan your trips with ease</footer>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
-
-
-
-
-<!-- makeshift logo code:         <svg
-        style="border: solid 0px;
-        border-radius: 5px;
-        background-color: rgb(74, 133, 97);
-        padding: 4px;
-        "
-          class="blackicons"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25"
-          />
-        </svg> -->
